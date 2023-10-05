@@ -1,0 +1,166 @@
+﻿@inject NavigationManager UriHelper
+@inject ILocalStorageService localStorage;
+@page "/"
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+<link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
+
+<PageTitle>Index</PageTitle>
+
+<MudGrid Justify="Justify.Center">
+    <MudItem>
+        <MudItem>
+            <span>Board size selected @(ThreeByThreeSize ? "3x3" : "4x4")</span>
+        </MudItem>
+        <MudItem Class="TicTacItem">
+            <MudToggleIconButton ToggledChanged="@(() => OnSizeToggleChanged(3))"
+                                 Icon="@Icons.Material.Filled.Grid3x3" Color="@Color.Default" Title="Off" Size="Size.Large" ToggledSize="Size.Large"
+                                 ToggledIcon="@Icons.Material.Filled.Grid3x3" ToggledColor="@Color.Success" ToggledTitle="On" Toggled="@ThreeByThreeSize" />
+            <MudToggleIconButton ToggledChanged="@(() => OnSizeToggleChanged(4))"
+                                 Icon="@Icons.Material.Filled.Grid4x4" Color="@Color.Default" Title="Off" Size="Size.Large" ToggledSize="Size.Large"
+                                 ToggledIcon="@Icons.Material.Filled.Grid4x4" ToggledColor="@Color.Success" ToggledTitle="On" Toggled="@FourByFourSize" />
+        </MudItem>
+        <MudItem>
+            <span>Winning length selected @(ThreeWL ? "3 in a row" : "4 in a row")</span>
+        </MudItem>
+        <MudItem Class="TicTacItem">
+            <MudToggleIconButton ToggledChanged="@(() => OnLengthToggleChanged(3))"
+                                 Icon="@Icons.Material.Filled.Looks3" Color="@Color.Default" Title="Off" Size="Size.Large" ToggledSize="Size.Large"
+                                 ToggledIcon="@Icons.Material.Filled.Looks3" ToggledColor="@Color.Success" ToggledTitle="Length" Toggled="@ThreeWL" />
+            <MudToggleIconButton ToggledChanged="@(() => OnLengthToggleChanged(4))"
+                                 Icon="@Icons.Material.Filled.Looks4" Color="@Color.Default" Title="Off" Size="Size.Large" ToggledSize="Size.Large"
+                                 ToggledIcon="@Icons.Material.Filled.Looks4" ToggledColor="@Color.Success" ToggledTitle="Length" Toggled="@FourWL" />
+        </MudItem>
+        <MudItem>
+            <span>@Difficulty</span>
+        </MudItem>
+        <MudItem Class="TicTacItem">
+            <MudToggleIconButton ToggledChanged="@(() => OnDifficultyToggle(1))"
+                                 Icon="@Icons.Material.Filled.Blind" Color="@Color.Default" Title="Off" Size="Size.Large" ToggledSize="Size.Large"
+                                 ToggledIcon="@Icons.Material.Filled.Blind" ToggledColor="@Color.Success" ToggledTitle="Length" Toggled="@Easy" />
+            <MudToggleIconButton ToggledChanged="@(() => OnDifficultyToggle(2))"
+                                 Icon="@Icons.Material.Filled.DirectionsWalk" Color="@Color.Default" Title="Off" Size="Size.Large" ToggledSize="Size.Large"
+                                 ToggledIcon="@Icons.Material.Filled.DirectionsWalk" ToggledColor="@Color.Success" ToggledTitle="Length" Toggled="@Normal" />
+            <MudToggleIconButton ToggledChanged="@(() => OnDifficultyToggle(3))"
+                                 Icon="@Icons.Material.Filled.DirectionsRun" Color="@Color.Default" Title="Off" Size="Size.Large" ToggledSize="Size.Large"
+                                 ToggledIcon="@Icons.Material.Filled.DirectionsRun" ToggledColor="@Color.Success" ToggledTitle="Length" Toggled="@Hard" />
+        </MudItem>
+        <MudItem Class="TicTacItem">
+            <MudButton Variant="Variant.Filled" Color="Color.Success" OnClick="OnClick">Start Game</MudButton>
+        </MudItem>
+    </MudItem>
+</MudGrid>
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code{
+    string Difficulty = "Q-Learning difficulty : Easy";
+    bool ThreeByThreeSize = true;
+    bool FourByFourSize;
+    bool ThreeWL = true;
+    bool FourWL;
+    bool Easy = true;
+    bool Normal;
+    bool Hard;
+    int boardSize;
+    int winningLength;
+    GameState state;
+    GameRenderer renderer;
+    GameResultHandler gameResultHandler;
+    bool inProgress = true;
+    public GameResult gameResult = GameResult.InProgress;
+
+    private void OnSizeToggleChanged(int size)
+    {
+        if (size == 3 && !ThreeByThreeSize && FourWL)
+        {
+            ThreeByThreeSize = true;
+            FourByFourSize = false;
+            FourWL = false;
+            ThreeWL = true;
+        }
+        if (size == 3 && !ThreeByThreeSize)
+        {
+            ThreeByThreeSize = true;
+            FourByFourSize = false;
+        }
+        if (size == 4 && !FourByFourSize)
+        {
+            FourByFourSize = true;
+            ThreeByThreeSize = false;
+        }
+    }
+
+    private void OnLengthToggleChanged(int length)
+    {
+        if (length == 3 && !ThreeWL)
+        {
+            ThreeWL = true;
+            FourWL = false;
+        }
+        if (length == 4 && !FourWL && !ThreeByThreeSize)
+        {
+            FourWL = true;
+            ThreeWL = false;
+        }
+    }
+
+    private void OnDifficultyToggle(int difficultyInt)
+    {
+        if (difficultyInt == 1 && !Easy)
+        {
+            Easy = true;
+            Normal = false;
+            Hard = false;
+        }
+        if (difficultyInt == 2 && !Normal)
+        {
+            Easy = false;
+            Normal = true;
+            Hard = false;
+        }
+        if (difficultyInt == 3 && !Hard)
+        {
+            Easy = false;
+            Normal = false;
+            Hard = true;
+        }
+        SetDifficultySetting();
+    }
+
+    private void SetDifficultySetting()
+    {
+        if (Easy)
+        {
+            Difficulty = "Q-Learning difficulty : Easy";
+        }
+        if (Normal)
+        {
+            Difficulty = "Q-Learning difficulty : Normal";
+        }
+        if (Hard)
+        {
+            Difficulty = "Q-Learning difficulty : Hard";
+        }
+    }
+
+    private async void OnClick()
+    {
+        int diff = 1;
+        if (Normal)
+        {
+            diff = 2;
+        }
+        if (Hard)
+        {
+            diff = 3;
+        }
+        var settings = new GameSettings()
+            {
+                BoardSize = ThreeByThreeSize ? 3 : 4,
+                WinningLength = ThreeWL ? 3 : 4,
+                Difficulty = diff
+            };
+        await localStorage.SetItemAsync("Settings", settings);
+        UriHelper.NavigateTo($"/GamePage");
+    }
+}

@@ -1,0 +1,255 @@
+﻿@inject ILocalStorageService localStorage;
+@inject NavigationManager UriHelper
+@inject HttpClient Http
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+<link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
+@page "/GamePage"
+<MudGrid Justify="Justify.Center">
+    @if (isInitialized)
+    {
+        <MudButton Variant="Variant.Filled" OnClick="NavigateToIndex">Back To Settings</MudButton>
+        <MudItem>
+            <MudText>@GameResult</MudText>
+        </MudItem>
+        @for (var row = 0; row < settings.BoardSize; row++)
+        {
+            <TicTacToeRow Row="@row" BoardSize="@settings.BoardSize" isDisabled="@gameEnded" Positions="@state.Board.Positions" OnCellClick="@HandleCellClick"></TicTacToeRow>
+        }
+        <MudButton Variant="Variant.Filled" OnClick="InitializeBoard" Disabled="!gameEnded">Restart Game</MudButton>
+    }
+</MudGrid>
+
+@code {
+    private GameSettings settings = new GameSettings();
+    private QLearningBot qLearningBot;
+    private HumanPlayer player;
+    private GameState state;
+    private GameResultHandler ResultHandler;
+    int boardSideLength = 0;
+    bool isInitialized = false;
+    GameResult gameResult;
+
+    Dictionary<string, double> currentModel;
+
+    bool playerStarts = false;
+    bool gameEnded;
+
+    string GameResult = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        settings = await localStorage.GetItemAsync<GameSettings>("Settings");
+        await GetDifficulty();
+        await InitializeBoard();
+    }
+
+    async Task InitializeBoard()
+    {
+        this.GameResult = "";
+        qLearningBot = new QLearningBot(null, customName: "bot", apiLoadedPolicy: currentModel, explorationRate: 0, shouldTrain:true);
+        player = new HumanPlayer();
+        state = new GameState(qLearningBot, player, settings.BoardSize, settings.WinningLength);
+        ResultHandler = new GameResultHandler(state);
+        boardSideLength = (int)Math.Sqrt(state.Board.Positions.Length);
+        RandomizeStarter();
+        await MoveIfBotIsFirst();
+        isInitialized = true;
+        gameEnded = false;
+    }
+
+    private 
+
+    async Task GetDifficulty()
+    {
+        if (settings.BoardSize == 3 && settings.Difficulty == 1)
+        {
+            currentModel = await GetThreeByThreeWithThreeWLDiff(GetDifficultyString(1));
+        }
+        if (settings.BoardSize == 3 && settings.Difficulty == 2)
+        {
+            currentModel = await GetThreeByThreeWithThreeWLDiff(GetDifficultyString(2));
+        }
+        if (settings.BoardSize == 3 && settings.Difficulty == 3)
+        {
+            currentModel = await GetThreeByThreeWithThreeWLDiff(GetDifficultyString(3));
+        }
+
+        //4x4 3WL
+        if (settings.BoardSize == 4 && settings.WinningLength == 3 && settings.Difficulty == 1)
+        {
+            currentModel = await GetFourByFourWithThreeWLDiff(GetDifficultyString(1));
+        }
+        if (settings.BoardSize == 4 && settings.WinningLength == 3 && settings.Difficulty == 2)
+        {
+            currentModel = await GetFourByFourWithThreeWLDiff(GetDifficultyString(2));
+        }
+        if (settings.BoardSize == 4 && settings.WinningLength == 3 && settings.Difficulty == 3)
+        {
+            currentModel = await GetFourByFourWithThreeWLDiff(GetDifficultyString(3));
+        }
+
+        //4x4 4WL
+        if (settings.BoardSize == 4 && settings.WinningLength == 4 && settings.Difficulty == 1)
+        {
+            currentModel = await GetFourByFourWithFourWLDiff(GetDifficultyString(1));
+        }
+        if (settings.BoardSize == 4 && settings.WinningLength == 4 && settings.Difficulty == 2)
+        {
+            currentModel = await GetFourByFourWithFourWLDiff(GetDifficultyString(2));
+        }
+        if (settings.BoardSize == 4 && settings.WinningLength == 4 && settings.Difficulty == 3)
+        {
+            currentModel = await GetFourByFourWithFourWLDiff(GetDifficultyString(3));
+        }
+    }
+
+
+
+    private string GetPositionSymbol(int positionValue)
+    {
+        if (positionValue == PlayerHelper.PlayerOne)
+        {
+            return PlayerHelper.PlayerOneSymbol;
+        }
+        if (positionValue == PlayerHelper.PlayerTwo)
+        {
+            return PlayerHelper.PlayerTwoSymbol;
+        }
+        return " ";
+    }
+
+    async Task MoveIfBotIsFirst()
+    {
+        if (!playerStarts)
+        {
+            var move = await state.PlayerOne.PlayMove(state);
+            state.MakeMove(move);
+        }
+    }
+
+    async Task HandleCellClick(int index)
+    {
+        await HumanPlayerTurn(index);
+        gameResult = ResultHandler.CheckResult();
+
+        if (gameResult == TicTacToeLibrary.GameResult.InProgress)
+        {
+            gameEnded = true;
+            await BotPlayerTurn(index);
+            gameResult = ResultHandler.CheckResult();
+            gameEnded = false;
+        }
+        if (gameResult != TicTacToeLibrary.GameResult.InProgress)
+        {
+            AnnounceGameResult();
+        }
+    }
+
+    async Task HumanPlayerTurn(int index)
+    {
+        var playerTurn = state.GetPlayersTurnNumber();
+
+        if (playerTurn == PlayerHelper.PlayerOne && state.PlayerOne.GetPlayerName() == PlayerTypes.Player.ToString() && state.Board.AvailablePosition.Count != 0)
+        {
+            var move = await state.PlayerOne.PlayMove(state, index);
+            state.MakeMove(move);
+        }
+        if (playerTurn == PlayerHelper.PlayerTwo && state.PlayerTwo.GetPlayerName() == PlayerTypes.Player.ToString() && state.Board.AvailablePosition.Count != 0)
+        {
+            var move = await state.PlayerTwo.PlayMove(state, index);
+            state.MakeMove(move);
+        }
+    }
+
+    async Task BotPlayerTurn(int index)
+    {
+        var nextPlayerTurn = state.GetPlayersTurnNumber();
+        if (nextPlayerTurn == PlayerHelper.PlayerOne && state.PlayerOne.GetPlayerName() == "bot" && state.Board.AvailablePosition.Count != 0)
+        {
+            var move = await state.PlayerOne.PlayMove(state, index);
+            state.MakeMove(move);
+        }
+        if (nextPlayerTurn == PlayerHelper.PlayerTwo && state.PlayerTwo.GetPlayerName() == "bot" && state.Board.AvailablePosition.Count != 0)
+        {
+            var move = await state.PlayerTwo.PlayMove(state);
+            state.MakeMove(move);
+        }
+    }
+
+    void AnnounceGameResult()
+    {
+        var player1Name = state.PlayerOne.GetPlayerName();
+        var player2Name = state.PlayerTwo.GetPlayerName();
+        if (player1Name == PlayerTypes.Player.ToString() && gameResult == TicTacToeLibrary.GameResult.Player1Win)
+        {
+            GameResult = "Player wins the game!";
+        }
+        if (player2Name == PlayerTypes.Player.ToString() && gameResult == TicTacToeLibrary.GameResult.Player2Win)
+        {
+            GameResult = "Player wins the game!";
+        }
+        if (player1Name == "bot" && gameResult == TicTacToeLibrary.GameResult.Player1Win)
+        {
+            GameResult = "Bot wins the game!";
+        }
+        if (player2Name == "bot" && gameResult == TicTacToeLibrary.GameResult.Player2Win)
+        {
+            GameResult = "Bot wins the game!";
+        }
+        if (gameResult == TicTacToeLibrary.GameResult.Draw)
+        {
+            GameResult = "The game ended in a draw!";
+        }
+        gameEnded = true;
+    }
+
+    void RandomizeStarter()
+    {
+        var random = new Random();
+        var rnd = random.Next(0, 2);
+        playerStarts = rnd == 1 ? true : false;
+        if (playerStarts)
+        {
+            var temp = new HumanPlayer();
+            state.PlayerTwo = state.PlayerOne;
+            state.PlayerOne = temp;
+            state.PlayersTurn = state.PlayerOne;
+        }
+    }
+
+    async Task<Dictionary<string, double>> GetFourByFourWithFourWLDiff(string diff)
+    {
+        var temp = await Http.GetFromJsonAsync<Dictionary<string, double>>($"TrainingModel/FourByFourWithFourWL?difficulty={diff}");
+        return temp;
+    }
+
+    async Task<Dictionary<string, double>> GetFourByFourWithThreeWLDiff(string diff)
+    {
+        var temp = await Http.GetFromJsonAsync<Dictionary<string, double>>($"TrainingModel/FourByFourWithThreeWL?difficulty={diff}");
+        return temp;
+    }
+
+    async Task<Dictionary<string, double>> GetThreeByThreeWithThreeWLDiff(string diff)
+    {
+        var temp = await Http.GetFromJsonAsync<Dictionary<string, double>>($"TrainingModel/ThreeByThree?difficulty={diff}");
+        return temp;
+    }
+
+    private string GetDifficultyString(int diff)
+    {
+        if (diff == 1)
+        {
+            return "Easy";
+        }
+        if (diff == 2)
+        {
+            return "Normal";
+        }
+        return "Hard";
+    }
+
+    private void NavigateToIndex()
+    {
+        UriHelper.NavigateTo($"/");
+    }
+}

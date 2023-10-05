@@ -1,0 +1,44 @@
+﻿@using MudBlazor
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+<link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
+
+<MudItem Class="TicTacItem" xs="12" sm="12" md="12" lg="12">
+    @for (var col = 0; col < BoardSize; col++)
+    {
+        var index = Row * BoardSize + col;
+        if (index >= Positions.Length)
+        {
+            <text>Error: index out of bounds</text>
+        }
+        else
+        {
+            <MudButton Style="width: 140px; height: 140px;" Disabled="isDisabled" Variant="Variant.Outlined" Color="Color.Primary"OnClick="@(() => OnCellClick.InvokeAsync(index))">
+                @if (GetPositionSymbol(Positions[index]) != "_")
+                {
+                    <MudImage Src="@GetPositionSymbol(Positions[index])" Elevation="0" Class="rounded-lg" />
+                }
+            </MudButton>
+        }
+    }
+</MudItem>
+
+@code {
+    [Parameter] public int Row { get; set; }
+    [Parameter] public int BoardSize { get; set; }
+    [Parameter] public int[] Positions { get; set; }
+    [Parameter] public EventCallback<int> OnCellClick { get; set; }
+    [Parameter] public bool isDisabled { get; set; }
+
+    private string GetPositionSymbol(int positionValue)
+    {
+        if (positionValue == PlayerHelper.PlayerOne)
+        {
+            return "https://img.icons8.com/ios/100/circled.png";
+        }
+        if (positionValue == PlayerHelper.PlayerTwo)
+        {
+            return "https://img.icons8.com/ios/100/multiply.png";
+        }
+        return "_";
+    }
+}

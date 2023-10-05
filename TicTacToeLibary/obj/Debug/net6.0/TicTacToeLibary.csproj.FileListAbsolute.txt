@@ -1,0 +1,24 @@
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToeLibary\bin\Debug\net6.0\TicTacToeLibary.deps.json
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToeLibary\bin\Debug\net6.0\TicTacToeLibary.dll
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToeLibary\bin\Debug\net6.0\TicTacToeLibary.pdb
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToeLibary\obj\Debug\net6.0\TicTacToeLibary.csproj.AssemblyReference.cache
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToeLibary\obj\Debug\net6.0\TicTacToeLibary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToeLibary\obj\Debug\net6.0\TicTacToeLibary.AssemblyInfoInputs.cache
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToeLibary\obj\Debug\net6.0\TicTacToeLibary.AssemblyInfo.cs
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToeLibary\obj\Debug\net6.0\TicTacToeLibary.csproj.CoreCompileInputs.cache
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToeLibary\obj\Debug\net6.0\TicTacToeLibary.dll
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToeLibary\obj\Debug\net6.0\refint\TicTacToeLibary.dll
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToeLibary\obj\Debug\net6.0\TicTacToeLibary.pdb
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToeLibary\obj\Debug\net6.0\ref\TicTacToeLibary.dll
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToeLibary\bin\Debug\net6.0\TicTacToeLibary.deps.json
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToeLibary\bin\Debug\net6.0\TicTacToeLibary.dll
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToeLibary\bin\Debug\net6.0\TicTacToeLibary.pdb
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToeLibary\obj\Debug\net6.0\TicTacToeLibary.csproj.AssemblyReference.cache
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToeLibary\obj\Debug\net6.0\TicTacToeLibary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToeLibary\obj\Debug\net6.0\TicTacToeLibary.AssemblyInfoInputs.cache
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToeLibary\obj\Debug\net6.0\TicTacToeLibary.AssemblyInfo.cs
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToeLibary\obj\Debug\net6.0\TicTacToeLibary.csproj.CoreCompileInputs.cache
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToeLibary\obj\Debug\net6.0\TicTacToeLibary.dll
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToeLibary\obj\Debug\net6.0\refint\TicTacToeLibary.dll
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToeLibary\obj\Debug\net6.0\TicTacToeLibary.pdb
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToeLibary\obj\Debug\net6.0\ref\TicTacToeLibary.dll

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "HzRLgDEp5BWK2VuMr9m36sbiyJLxZK5Os9f8kCPojYs2f+tjXfVd3SLKFjJOYdnjNFqaVze1tvOl8W/vp82hoQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\benja\\Documents\\GitHub\\TicTacToeProj - Copy\\TicTacToe\\TicTacToe.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\benja\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

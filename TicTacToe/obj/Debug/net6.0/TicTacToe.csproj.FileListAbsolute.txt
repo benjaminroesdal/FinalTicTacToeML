@@ -1,0 +1,38 @@
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToe\bin\Debug\net6.0\TicTacToe.exe
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToe\bin\Debug\net6.0\TicTacToe.deps.json
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToe\bin\Debug\net6.0\TicTacToe.runtimeconfig.json
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToe\bin\Debug\net6.0\TicTacToe.dll
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToe\bin\Debug\net6.0\TicTacToe.pdb
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToe\obj\Debug\net6.0\TicTacToe.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToe\obj\Debug\net6.0\TicTacToe.AssemblyInfoInputs.cache
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToe\obj\Debug\net6.0\TicTacToe.AssemblyInfo.cs
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToe\obj\Debug\net6.0\TicTacToe.csproj.CoreCompileInputs.cache
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToe\obj\Debug\net6.0\TicTacToe.dll
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToe\obj\Debug\net6.0\refint\TicTacToe.dll
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToe\obj\Debug\net6.0\TicTacToe.pdb
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToe\obj\Debug\net6.0\TicTacToe.genruntimeconfig.cache
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToe\obj\Debug\net6.0\ref\TicTacToe.dll
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToe\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToe\obj\Debug\net6.0\TicTacToe.csproj.AssemblyReference.cache
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToe\obj\Debug\net6.0\TicTacToe.csproj.CopyComplete
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToe\bin\Debug\net6.0\TicTacToeLibary.dll
+C:\Users\benja\Documents\GitHub\TicTacToeProj\TicTacToe\bin\Debug\net6.0\TicTacToeLibary.pdb
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToe\bin\Debug\net6.0\TicTacToe.exe
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToe\bin\Debug\net6.0\TicTacToe.deps.json
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToe\bin\Debug\net6.0\TicTacToe.runtimeconfig.json
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToe\bin\Debug\net6.0\TicTacToe.dll
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToe\bin\Debug\net6.0\TicTacToe.pdb
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToe\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToe\bin\Debug\net6.0\TicTacToeLibary.dll
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToe\bin\Debug\net6.0\TicTacToeLibary.pdb
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToe\obj\Debug\net6.0\TicTacToe.csproj.AssemblyReference.cache
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToe\obj\Debug\net6.0\TicTacToe.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToe\obj\Debug\net6.0\TicTacToe.AssemblyInfoInputs.cache
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToe\obj\Debug\net6.0\TicTacToe.AssemblyInfo.cs
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToe\obj\Debug\net6.0\TicTacToe.csproj.CoreCompileInputs.cache
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToe\obj\Debug\net6.0\TicTacToe.csproj.CopyComplete
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToe\obj\Debug\net6.0\TicTacToe.dll
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToe\obj\Debug\net6.0\refint\TicTacToe.dll
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToe\obj\Debug\net6.0\TicTacToe.pdb
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToe\obj\Debug\net6.0\TicTacToe.genruntimeconfig.cache
+C:\Users\benja\Documents\GitHub\TicTacToeProj - Copy\TicTacToe\obj\Debug\net6.0\ref\TicTacToe.dll
